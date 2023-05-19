@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Card = require('../models/card');
 
 
-module.exports.getCards = (req, res, next) => {
+module.exports.getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.send(cards))
     .catch((err) => res.status(500).send({message: 'Ошибка по умолчанию'}));
@@ -11,8 +11,8 @@ module.exports.getCards = (req, res, next) => {
 module.exports.createCard = (req, res) => {
   console.log(req.user._id);
   const { name, link } = req.body;
-
-  Card.create({ name, link })
+  const userID = req.user._id;
+  Card.create({ name, link, userID})
     .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -26,7 +26,7 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteCardById = (req, res) => {
-  Card.findByIdAndRemove(req.params.owner)
+  Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
       if (!card) {
         return res
@@ -58,7 +58,7 @@ module.exports.likeCard = (req, res) => {
           .status(404)
           .send({ message: 'Карточка c указанным id не найдена' });
       }
-      return res.status(200).send(card);
+      return res.send(card);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -83,7 +83,7 @@ module.exports.dislikeCard = (req, res) => {Card.findByIdAndUpdate(
         .status(404)
         .send({ message: 'Карточка c указанным id не найдена' });
     }
-    return res.status(200).send(card);
+    return res.send(card);
   })
   .catch((err) => {
     if (err.name === 'CastError') {

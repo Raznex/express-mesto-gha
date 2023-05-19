@@ -16,7 +16,17 @@ module.exports.getUserById = (req, res) => {
       }
       res.send(user);
     })
-    .catch((err) => res.status(500).send({message: "Server error"}));
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        res
+          .status(400)
+          .send({
+            message: 'Переданы некорректные данные при поиске пользователя',
+          });
+      } else {
+        res.status(500).send({ message: 'Ошибка по умолчанию' });
+      }
+    });
 };
 
 module.exports.createUser = (req, res) => {
@@ -40,7 +50,7 @@ module.exports.updateUserProfile = (req, res) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true },
+    { new: true, runValidators: true},
   )
     .then((user) => res.send(user))
     .catch((err) => {
