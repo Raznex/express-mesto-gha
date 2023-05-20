@@ -8,13 +8,12 @@ module.exports.getUsers = (req, res) => {
 };
 
 module.exports.getUserById = (req, res) => {
-  const {id} = req.params;
-  User.findById(id)
+  User.findById(req.params.userId)
     .then((user) => {
       if (!user) {
         res.status(404).send({message: 'User not found'});
       }
-      res.send(user);
+      return res.send(user);
     })
     .catch((err) => {
       if (err.name === 'CastError') {
