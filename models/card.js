@@ -1,16 +1,24 @@
 const mongoose = require('mongoose');
 
+const cfg = require('../cfg');
+
 const cardSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-      minlength: 2,
-      maxlength: 30,
+      validate: {
+        validator: ({ length }) => length >= 2 && length <= 30,
+        message: 'Имя карточки должно быть длиной от 2 до 30 символов',
+      },
     },
     link: {
       type: String,
       required: true,
+      validate: {
+        validator: (url) => cfg.URL_REGEX.test(url),
+        message: 'Требуется ввести URL',
+      },
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +34,9 @@ const cardSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+  },
+  {
+    versionKey: false,
   },
 );
 
