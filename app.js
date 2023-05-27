@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/errorHandler');
-const PORT = 3000 ;
+
+const PORT = 3000;
 const router = require('./routes/index');
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb', {

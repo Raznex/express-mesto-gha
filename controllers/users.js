@@ -77,4 +77,3 @@ module.exports.updateUserAvatar = (req, res, next) => {
     .then((user) => res.send({ user }))
     .catch((err) => next(err));
 };
-
