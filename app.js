@@ -4,8 +4,8 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const router = require('./routes/index');
 const errorHandler = require('./middlewares/errorHandler');
+const PORT = 3000 ;
 
-const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(helmet());

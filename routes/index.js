@@ -1,15 +1,17 @@
 const router = require('express').Router();
-const userRouter = require('./users');
-const cardRouter = require('./cards');
-const signInRouter = require('./users');
-const signUpRouter = require('./users');
-const NotFoundErr = require('../errors/notFound')
+
 const auth = require('../middlewares/auth');
 
-router.use(auth);
+const userRouter = require('./users');
+const cardRouter = require('./cards');
+const signInRouter = require('./signin');
+const signUpRouter = require('./signup');
+const NotFoundErr = require('../errors/notFound')
+
 
 router.use('/', signInRouter);
 router.use('/', signUpRouter);
+router.use(auth);
 router.use('/users', userRouter);
 router.use('/cards', cardRouter);
 router.use((req, res, next) => next(new NotFoundErr('Страницы по запрошенному URL не существует')));

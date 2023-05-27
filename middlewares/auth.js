@@ -2,14 +2,14 @@ const jwt = require('jsonwebtoken');
 const cfg = require('../cfg');
 const UnauthorizedErr = require('../errors/unAutorize');
 
-module.exports = (req, res, next) => {
+module.exports = (req, _, next) => {
   const { authorization } = req.headers;
   const bearer = 'Bearer ';
   const errorMsg = 'Неправильные почта или пароль';
 
-  if (!authorization || !authorization.startsWith(bearer)) {
-    return next(new UnauthorizedErr(`${errorMsg}(${authorization})!`));
-  }
+  // if (!authorization || !authorization.startsWith(bearer)) {
+  //   return next(new UnauthorizedErr(`${errorMsg}(${authorization})!`));
+  // }
 
   const token = authorization.replace(bearer, '');
   let payload;
