@@ -11,7 +11,7 @@ const NotFoundErr = require('../errors/notFound')
 
 router.use('/', signInRouter);
 router.use('/', signUpRouter);
-router.use(auth);
+// router.use(auth);
 router.use('/users', userRouter);
 router.use('/cards', cardRouter);
 router.use((req, res, next) => next(new NotFoundErr('Страницы по запрошенному URL не существует')));
