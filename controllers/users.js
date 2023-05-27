@@ -38,9 +38,9 @@ module.exports.getUserId = (req, res, next) => {
 };
 
 module.exports.getCurrentUserInfo = (req, res, next) => {
-  const { userId } = req.user;
+  const { _id } = req.user;
 
-  findUserById(userId)
+  findUserById(_id)
     .then((user) => res.send({ user }))
     .catch(next);
 };
