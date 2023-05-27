@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/errorHandler');
 const PORT = 3000 ;
 const router = require('./routes/index');
@@ -16,6 +17,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(router);
 app.use(bodyParser.json());
+app.use(errors());
 app.use(errorHandler);
 
 app.listen(PORT);
