@@ -20,9 +20,9 @@ const findUserById = (id) => User.findById(id).then((user) => {
 });
 
 module.exports.getUserId = (req, res, next) => {
-  const { userId } = req.params;
+  const { id } = req.params;
 
-  findUserById(userId)
+  findUserById(id)
     .then((user) => res.send({ user }))
     .catch((err) => {
       if (err instanceof CastError) {
