@@ -45,7 +45,7 @@ module.exports.getCurrentUserInfo = (req, res, next) => {
     .catch(next);
 };
 
-const updateUserProfileData = (userId, data) => User.findByIdAndUpdate(userId, data, {
+const updateUserProfileData = (_id, data) => User.findByIdAndUpdate(_id, data, {
   new: true,
   runValidators: true,
 }).then((user) => {
@@ -62,18 +62,18 @@ const updateUserProfileData = (userId, data) => User.findByIdAndUpdate(userId, d
 
 module.exports.updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
-  const { userId } = req.user;
+  const { _id } = req.user;
 
-  updateUserProfileData(userId, { name, about })
+  updateUserProfileData(_id, { name, about })
     .then((user) => res.send({ user }))
     .catch((err) => next(err));
 };
 
 module.exports.updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  const { userId } = req.user;
+  const { _id } = req.user;
 
-  updateUserProfileData(userId, { avatar })
+  updateUserProfileData(_id, { avatar })
     .then((user) => res.send({ user }))
     .catch((err) => next(err));
 };
