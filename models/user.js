@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const cfg = require('../cfg');
+const WrongEOP = require('../errors/wrongEmailorPass');
 
 const userSchema = new mongoose.Schema(
   {
@@ -51,10 +52,10 @@ const userSchema = new mongoose.Schema(
                 if (matched) {
                   return user;
                 }
-                throw new Error('Неправильные почта или пароль');
+                throw new WrongEOP('Неправильные почта или пароль');
               });
             }
-            throw new Error('Неправильные почта или пароль');
+            throw new WrongEOP('Неправильные почта или пароль');
           });
       },
 

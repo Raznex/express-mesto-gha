@@ -1,6 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
 const errorHandler = require('./middlewares/errorHandler');
@@ -17,7 +16,6 @@ const app = express();
 app.use(helmet());
 app.use(express.json());
 app.use(router);
-app.use(bodyParser.json());
 app.use(errors());
 app.use(errorHandler);
 
